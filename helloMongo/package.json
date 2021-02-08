@@ -1,0 +1,20 @@
+{
+  "name": "hellomongo",
+  "version": "1.0.0",
+  "description": "Teste de Conexao Mongo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo test",
+    "start": "nodejs index.js"
+  },
+  "keywords": [
+    "mongodb",
+    "nodejs"
+  ],
+  "author": "Guilherme B (Jamal)",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.11.15"
+  }
+}
