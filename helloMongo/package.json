@@ -14,7 +14,9 @@
   "author": "Guilherme B (Jamal)",
   "license": "MIT",
   "dependencies": {
+    "apollo-server": "^2.21.0",
     "express": "^4.17.1",
+    "graphql": "^15.5.0",
     "mongoose": "^5.11.15"
   }
 }

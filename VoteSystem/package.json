@@ -1,0 +1,22 @@
+{
+  "name": "votesystem",
+  "version": "1.0.0",
+  "description": "Estudos de socket.io e realtime apps",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo test",
+    "start": "nodejs index.js"
+  },
+  "keywords": [
+    "Vote",
+    "System",
+    "Realtime",
+    "Socket.io"
+  ],
+  "author": "Guilherme Braga (Jamal)",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^3.1.1"
+  }
+}
