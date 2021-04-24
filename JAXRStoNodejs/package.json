@@ -1,0 +1,16 @@
+{
+  "name": "jaxrstonodejs",
+  "version": "1.0.0",
+  "description": "Conversao de Java para Javascript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo 'test'",
+    "start": "nodemon index.js"
+  },
+  "author": "Guilherme Braga",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7"
+  }
+}
