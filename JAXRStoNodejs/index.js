@@ -3,25 +3,25 @@ const { stringify } = require('qs');
 var app = express();
 var PORT = 3000;
 
-var Pessoa = {
-    id: 0,
-    nome: '',
-    idade: 0,
+function Pessoa(id, nome, idade){
+    this.id = id;
+    this.nome = nome;
+    this.idade = idade
 }
 
-var i = 0;
 
 app.get('/', (req,res) =>{
   var lista = [];
-
-  for(i=0;i < 10; i++){
-    Pessoa.id = i;
-    Pessoa.idade = 22;
-    Pessoa.nome = "Teste " + i;
-    lista.push(Pessoa)
+  
+  for(i = 0; i < 5; i++){ 
+    let idadeTemp = Math.trunc(Math.random() * (80 - 20) + 20); 
+    lista.push(new Pessoa(i, "Teste " + i, idadeTemp)); 
+    
   }
-
-  res.json(lista);
+  
+  console.table(lista);
+  res.setHeader('Content-Type', 'application/json');
+  res.send(JSON.stringify(lista));
 });
 
 
