@@ -1,0 +1,20 @@
+{
+  "name": "apollonodehello",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo ",
+    "start": "nodejs index.js"
+  },
+  "keywords": [
+    "MIT"
+  ],
+  "author": "Guilherme B.",
+  "license": "MIT",
+  "dependencies": {
+    "apollo-server": "^3.3.0",
+    "express": "^4.17.1",
+    "graphql": "^15.5.3"
+  }
+}
