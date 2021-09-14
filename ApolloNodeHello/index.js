@@ -12,6 +12,7 @@ const typeDefs = gql`
   type Book {
     title: String
     author: String
+    value: Float
   }
 
   # The "Query" type is special: it lists all of the available queries that
@@ -26,10 +27,17 @@ const books = [
     {
       title: 'The Awakening',
       author: 'Kate Chopin',
+      value: 19.99,
     },
     {
       title: 'City of Glass',
       author: 'Paul Auster',
+      value: 19.99,
+    },
+    {
+      title: 'Harry potter',
+      author: 'Kaluz',
+      value: 19.99,
     },
   ];
 
