@@ -10,8 +10,28 @@ const mongoose          = require('mongoose');
 const Event             = require('./models/event.js');
 const User              = require('./models/user.js');
 
-// Bacalhau para Testes
-const events = [];
+
+const events = eventsIds => {
+    return Event.find({_id: {$in: eventsIds}})
+      .then(events => {
+          return events.map(event => { 
+              return { ...event._doc, _id: event.id , creator: user.bind(this, event.creator)};
+          });
+      })
+      .catch(err =>{
+          throw err
+      })
+}
+
+const user = userId => {
+    return User.findById(userId)
+        .then(user => {
+            return {...user._doc, _id: user.id};
+        })
+        .catch(err =>{
+            throw err
+        })
+}
 
 app.use(bodyParser.json());
 
@@ -27,12 +47,14 @@ app.use('/graphql',
             description: String!
             price: Float!
             date: String!
+            creator: User!
         }
 
         type User { 
             _id: ID!
             email: String!
             password: String
+            createdEvents: [Event!]
         }
 
         input UserInput{
@@ -66,7 +88,12 @@ app.use('/graphql',
            return Event.find()
                 .then(events => {
                   return events.map(event => {
-                     return { ...event._doc , _id: event.id};
+                     return { 
+                         ...event._doc ,
+                          _id: event.id,
+                          //Estudar isso
+                          creator: user.bind(this, event._doc.creator)
+                        };
                 });                
             }).catch(err => {
                 console.log(err);
@@ -100,7 +127,7 @@ app.use('/graphql',
                 description: args.eventInput.description,
                 price: +args.eventInput.price,
                 date: new Date(args.eventInput.date),
-                creator: '61590be7263fbf8b87aa8420'
+                creator: '615a45036d291f3ce63538a6'
             });
 
             let createdEvent;
@@ -108,7 +135,7 @@ app.use('/graphql',
             .save()
             .then(result => {
                 createdEvent = { ...result._doc, _id: result._doc._id.toString() };
-                return User.findById('61590be7263fbf8b87aa8420');
+                return User.findById('615a45036d291f3ce63538a6');
             })
             .then(user => {
                 if(!user){
