@@ -1,8 +1,12 @@
 const bcrypt = require('bcryptjs');
 
-// Modelos
-const Event = require('../../models/event');
-const User = require('../../models/user');
+// Modelos de Tabelas
+const Event   = require('../../models/event');
+const User    = require('../../models/user');
+const Booking = require('../../models/booking'); 
+
+// Retirar Depois
+const bacalhau = '615f78a746302f4cab2e7379'
 
 const events = eventsIds => {
     return Event.find({_id: {$in: eventsIds}})
@@ -28,7 +32,21 @@ const user = userId => {
 
 
 module.exports = {
-    events: () => {
+    bookings: async () => {
+        try{
+           const bookings = await Booking.find();
+           return bookings.map(booking => {
+               return {...booking._doc, 
+                      _id: booking.id,
+                      createdAt: new Date(booking._doc.createdAt).toISOString(),
+                      updatedAt: new Date(booking._doc.updatedAt).toISOString()
+               }
+           })
+        }catch(err) {
+            throw err;
+        }
+    }, 
+    events: async () => {
        return Event.find()
             .then(events => {
               return events.map(event => {
@@ -71,7 +89,7 @@ module.exports = {
             description: args.eventInput.description,
             price: +args.eventInput.price,
             date: new Date(args.eventInput.date),
-            creator: '615f15f61697fc5aa3c78a60'
+            creator: bacalhau
         });
 
         let createdEvent;
@@ -79,7 +97,7 @@ module.exports = {
         .save()
         .then(result => {
             createdEvent = { ...result._doc, _id: result._doc._id.toString() };
-            return User.findById('615f15f61697fc5aa3c78a60');
+            return User.findById(bacalhau);
         })
         .then(user => {
             if(!user){
@@ -95,5 +113,23 @@ module.exports = {
             console.log(err);
             throw err;
         });
+    },
+    bookEvent: async args => {        
+        const fetchedEvent = await Event.findOne({ _id: args.eventId });
+        // Criar nova marcação de Book
+        const booking = new Booking({
+             user: bacalhau,
+             event: fetchedEvent
+        });
+
+        const result = await booking.save();
+
+        return {
+            ...result._doc,
+            _id: result.id,
+            createdAt: new Date(result._doc.createdAt).toISOString(),
+            updatedAt: new Date(result._doc.updatedAt).toISOString()
+        };
     }
+
  }
