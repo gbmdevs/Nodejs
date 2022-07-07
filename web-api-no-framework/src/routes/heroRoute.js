@@ -11,10 +11,15 @@ const routes = ({
         response.end();
     },
     '/heroes:post': async(request,response) => {
-        //const data = await once(request, 'data');
+        const data = await once(request, 'data');
+        const item = JSON.parse(data);
+        const hero = new Hero(item);
+        
+        //const id = await heroService.create(hero);
          
         response.writeHead(201, DEFAULT_HEADER);
         response.write(JSON.stringify({
+            id: hero.id,
             success: "User created with success!!",
         }));
         return response.end();

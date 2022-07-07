@@ -36,6 +36,12 @@ test('Hero integration Test Suite', async(t) =>{
             'User created with success!!',
             'it should return a valid message'
         );
+
+        assert.ok(
+            result.id.length > 30,
+            'id should be a valid UUID'
+        )
+
      })
 
      await promisify(server.close.bind(server))()
