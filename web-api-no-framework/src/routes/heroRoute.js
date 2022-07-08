@@ -15,11 +15,11 @@ const routes = ({
         const item = JSON.parse(data);
         const hero = new Hero(item);
         
-        //const id = await heroService.create(hero);
+        const id = await heroService.create(hero);
          
         response.writeHead(201, DEFAULT_HEADER);
         response.write(JSON.stringify({
-            id: hero.id,
+            id,
             success: "User created with success!!",
         }));
         return response.end();
